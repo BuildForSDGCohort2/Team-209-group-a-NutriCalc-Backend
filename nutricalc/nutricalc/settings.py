@@ -119,7 +119,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ]
 }
 
@@ -141,8 +141,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/nutricalc/staticfiles/'
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles/')
+STATIC_URL = '/staticfiles/'
+STATIC_ROOT=os.path.join(BASE_DIR,'../staticfiles/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'calculator/static/'),
 )
