@@ -1,0 +1,1 @@
+web: gunicorn  nutricalc/nutricalc.wsgi
