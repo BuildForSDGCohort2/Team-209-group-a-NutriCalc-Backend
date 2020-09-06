@@ -15,17 +15,15 @@ Intergrated codacy
 # getting nutricalc_backend started
 
 ## git clone repo on your development machine
-
-    ```
-    
-    $ git clone [repository link ](https://github.com/BuildForSDGCohort2/Team-209-group-a-NutriCalc-Backend.git)
+```
+    $ git clone [Repository link](https://github.com/BuildForSDGCohort2/Team-209-group-a-NutriCalc-Backend.git)
     $ cd Team-209-group-a-NutriCalc-Backend/
-   
+  ```
    
 ## setting up the environment
 
-```
-    activate venv,install dependancies
+```python
+    # activate venv,install dependancies
     $ source venv/bin/activate
     $ pip install requirements.txt
     ( ensure you have python3)
