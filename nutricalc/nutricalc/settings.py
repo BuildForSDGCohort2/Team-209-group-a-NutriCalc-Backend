@@ -61,7 +61,7 @@ MIDDLEWARE = [
    
 ]
 
-ROOT_URLCONF = '../../nutricalc.urls'
+ROOT_URLCONF = '../nutricalc.urls'
 
 TEMPLATES = [
     {
@@ -79,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'nutricalc/nutricalc.wsgi.application'
+WSGI_APPLICATION = '../nutricalc.wsgi.application'
 
 
 # Database
