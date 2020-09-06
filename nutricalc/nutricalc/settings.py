@@ -61,7 +61,8 @@ MIDDLEWARE = [
    
 ]
 
-ROOT_URLCONF = '../nutricalc.urls'
+ROOT_URLCONF = '../../nutricalc.urls'
+print("url_dir: ",ROOT_URLCONF)
 
 TEMPLATES = [
     {
