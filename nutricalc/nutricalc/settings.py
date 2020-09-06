@@ -10,11 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+from 
 from pathlib import Path
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print("dir: ",BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,7 +29,10 @@ SECRET_KEY = 'yh-m!4278-qfzobg3%d9e$$phk-!sx!jyp_y@_a3s_qc=&9282'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    os.environ.get('ALLOWED_HOSTS'),
+    ]
 
 
 # Application definition
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'calculator',
 ]
 
 MIDDLEWARE = [
@@ -80,11 +87,14 @@ WSGI_APPLICATION = 'nutricalc.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('NAME'),
+        'USER': os.environ.get('USER'),
+        'PASSWORD': os.environ.get('PASSWORD'),
+        'HOST': os.environ.get('HOST'),
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -133,9 +143,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'static/')
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR,'{app}/static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'calculator/static/'),
+)
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 

@@ -11,3 +11,22 @@
 
 Intergrated codacy
 >>>>>>> 54c9522afef7c1404e4f30fc72ac5905083740ea
+
+# getting nutricalc_backend started
+
+# git clone repo on your development machine
+cd into createfolder(repository folder/root folder)
+
+# setting up the environment
+from root folder: source venv/bin/activate
+                : pip install requirements.txt
+                :( ensure you have python3)
+
+# starting the project
+cd nutricalc/
+
+    # to run development server
+    python3 manage.py runserver 
+
+# dectivating the virtual environment
+from root folder: deactivate
