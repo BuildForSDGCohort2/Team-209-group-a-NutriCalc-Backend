@@ -79,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = '../nutricalc.wsgi.application'
+WSGI_APPLICATION = '../../nutricalc.wsgi.application'
 
 
 # Database
