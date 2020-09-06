@@ -1,1 +1,1 @@
-web: gunicorn  nutricalc/nutricalc.wsgi
+web: gunicorn nutricalc.wsgi
