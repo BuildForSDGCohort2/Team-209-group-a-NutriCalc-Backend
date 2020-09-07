@@ -27,6 +27,7 @@ Intergrated codacy
     $ source venv/bin/activate
     $ pip install requirements.txt
     ( ensure you have python3)
+    $ source .env
 ```
 ## starting the project
 
@@ -45,7 +46,9 @@ $
 next time start from git pull
 ```
   $ cd Team-209-group-a-NutriCalc-Backend/
-  $ git pull
+  $ git pull$ source venv/bin/activate
+  $ source venv/bin/activate
+  $ source .env
   $ pip install requirements.txt
   $ python3 manage.py runserver
 ```
