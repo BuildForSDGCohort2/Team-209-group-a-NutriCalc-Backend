@@ -46,7 +46,7 @@ $
 next time start from git pull
 ```
   $ cd Team-209-group-a-NutriCalc-Backend/
-  $ git pull$ source venv/bin/activate
+  $ git pull
   $ source venv/bin/activate
   $ source .env
   $ pip install requirements.txt
