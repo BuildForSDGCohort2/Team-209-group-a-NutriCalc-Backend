@@ -30,9 +30,9 @@ Intergrated codacy
 ```
 ## starting the project
 
-```
+```python
    $ cd nutricalc/
-    to run development server
+   # to run development server
    $ python3 manage.py runserver 
 ```
 
@@ -43,4 +43,10 @@ $ cd ..
 
     # deactivate .venv
     deactivate
+```
+next time start from git pull
+```
+  $ git pull
+  $ cd nutricalc
+  $ python3 manage.py runserver
 ```
