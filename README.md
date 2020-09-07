@@ -31,7 +31,6 @@ Intergrated codacy
 ## starting the project
 
 ```python
-   $ cd nutricalc/
    # to run development server
    $ python3 manage.py runserver 
 ```
@@ -39,14 +38,14 @@ Intergrated codacy
 ## dectivating the virtual environment
 
 ```
-$ cd .. 
-
-    # deactivate .venv
-    deactivate
+$
+  # deactivate .venv
+  deactivate
 ```
 next time start from git pull
 ```
+  $ cd Team-209-group-a-NutriCalc-Backend/
   $ git pull
-  $ cd nutricalc
+  $ pip install requirements.txt
   $ python3 manage.py runserver
 ```
