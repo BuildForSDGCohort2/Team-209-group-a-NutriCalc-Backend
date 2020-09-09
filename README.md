@@ -16,7 +16,7 @@ Intergrated codacy
 
 ## git clone repo on your development machine
 ```
-    $ git clone [Repository link](https://github.com/BuildForSDGCohort2/Team-209-group-a-NutriCalc-Backend.git)
+    $ git clone [Repository link] (https://github.com/BuildForSDGCohort2/Team-209-group-a-NutriCalc-Backend.git)
     $ cd Team-209-group-a-NutriCalc-Backend/
   ```
    
@@ -31,6 +31,7 @@ Intergrated codacy
 ## starting the project
 
 ```python
+   $ cd nutricalc/
    # to run development server
    $ python3 manage.py runserver 
 ```
@@ -38,14 +39,14 @@ Intergrated codacy
 ## dectivating the virtual environment
 
 ```
-$
-  # deactivate .venv
-  deactivate
+$ cd .. 
+
+    # deactivate .venv
+    deactivate
 ```
 next time start from git pull
 ```
-  $ cd Team-209-group-a-NutriCalc-Backend/
   $ git pull
-  $ pip install requirements.txt
+  $ cd nutricalc
   $ python3 manage.py runserver
 ```
