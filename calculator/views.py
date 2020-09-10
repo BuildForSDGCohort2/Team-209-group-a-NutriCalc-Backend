@@ -14,7 +14,7 @@ from django.http.response import HttpResponse
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
-# backend logic
+# backend logic views
 
 
 # api views
@@ -25,7 +25,7 @@ API VIEWS: functional api  views
 
 '''
 
-# User Creating Endpoint
+    # User Creating Endpoint
 
 
 @api_view(['GET', 'POST'])
@@ -45,7 +45,7 @@ def register_user(request):
         return Response({"message": "user not added", "status": 404})
     return Response({'message': "Add a new user"})
 
-# User Auth Endpoint
+    # User Auth Endpoint
 
 
 @api_view(['GET', 'POST'])
