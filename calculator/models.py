@@ -25,4 +25,4 @@ class SoilAssessment(models.Model):
 class FertilizerAvailable(models.Model):
     name = models.CharField(max_length=200)
     def __str__(self):
-        return self.name
+        return f"{self.name}"

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager,PermissionsMixin
-
+from rest_framework_simplejwt.tokens import RefreshToken
 # Create your models here.
 
 # Custom User model for verify user emails and sending verification links
@@ -10,7 +10,7 @@ class UserManager(BaseUserManager):
             raise TypeError('Users should have a unique username')
         if email  is None:
             raise TypeError('Users should have a unique email')
-        
+        email = self.normalize_email(email)
         user=self.model(email=email,username=username)
         user.set_password(password)
         user.save()
@@ -32,13 +32,18 @@ class User(AbstractUser):
     is_verified=models.BooleanField(default=False)
     is_active=models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
-    date_joined=models.DateTimeField(auto_now_add=True)
+    created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['username']
 
     def __str__(self):
-        return self.username-self.email
-    def tokens(self):
-        return ''
+        return f"{self.username}-{self.email}"
+
+    def get_tokens_for_user(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
