@@ -1,6 +1,7 @@
 
 from rest_framework import serializers
 from authentication.models import User
+from .models import Fertilizer
 
 
 class UserSerializer (serializers.ModelSerializer):
@@ -20,3 +21,7 @@ class UserSerializer (serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+class FertilizerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Fertilizer
+        fields = ["ertilizer_name",]
