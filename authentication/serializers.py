@@ -9,7 +9,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=60,min_length=4,write_only=True)
 
     class Meta:
-        model=User
+        model = get_user_model()
         fields=['email','username','password']
 
 
@@ -30,7 +30,7 @@ class EmailVerifySerializer(serializers.ModelSerializer):
     token=serializers.CharField(max_length=700)
 
     class Meta:
-        model=User
+        model = get_user_model()
         fields=['token']
 
 
@@ -50,7 +50,7 @@ class LoginViewSerializer(serializers.Serializer):
         }
     
     class Meta:
-        model= User
+        model = get_user_model()
         fields=['email','password','username','tokens']
     
     # validate
