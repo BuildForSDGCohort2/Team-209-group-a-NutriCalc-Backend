@@ -73,6 +73,7 @@ class LoginViewSerializer(serializers.Serializer):
         # referctored into get_token method
         '''
         return {
+            "id":authenticated_user.id,
             "username":authenticated_user.username,
             "email":authenticated_user.email,
             "tokens":authenticated_user.get_tokens_for_user,

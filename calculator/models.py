@@ -22,7 +22,6 @@ class Fertilizer(models.Model):
 
 class SoilAssessment(models.Model):
     # farm
-    fertilizer = models.ForeignKey(Fertilizer, on_delete=models.CASCADE)
     soil_type = models.DecimalField(max_digits=4, decimal_places=2)
     ph_value = models.DecimalField(max_digits=4, decimal_places=2)
 
@@ -30,7 +29,9 @@ class SoilAssessment(models.Model):
         return f'{self.soil_type}-{self.ph_value} pH'
     
 class FertilizerAvailable(models.Model):
+    fertilizer = models.ForeignKey(Fertilizer, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
+    manufacture = models.CharField(max_length=200)
     class Meta:
         verbose_name_plural="Fertilizers available"
         
@@ -47,7 +48,7 @@ class Plant(models.Model):
 
 # FarmInput(plant,farmer,fertilizer,estimated_calculation)
 class FarmInput(models.Model):
-    fertilizer = models.ForeignKey(Fertilizer, on_delete=models.CASCADE)
+    fertilizer = models.ForeignKey(Fertilizer, on_delete=models.CASCADE, default="test1")
     purpose = models.CharField(max_length=300)
     description = models.TextField()
     estimated_calculation = models.IntegerField(
@@ -58,25 +59,26 @@ class FarmInput(models.Model):
 
 
 class Area(models.Model):
-    name = models.CharField(max_length=100)
-
+    county = models.CharField(max_length=100,blank=True)
+    area_name = models.CharField(max_length=100,blank=True)
     def __str__(self):
-        return self.name
+        return f"{self.area_name}"
     
 class SizeOfLand(models.Model):
     acres = models.IntegerField(default=0)
     
     def __str__(self):
-        return self.acres
+        return f"{self.acres}"
 
 # Farm (farmer,name of farm,plant,soil_assesment,farm input)
 class Farm(models.Model):
-    owner = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="farmer")
     farm_name = models.CharField(max_length=100)
     size_of_land = models.ForeignKey(SizeOfLand,on_delete=models.CASCADE)
     location = models.ForeignKey(Area, on_delete=models.CASCADE)
     soil_assesment = models.ForeignKey(
-    SoilAssessment, on_delete=models.CASCADE, blank=True, null=True)
+        SoilAssessment, on_delete=models.CASCADE, blank=True, null=True)
     farm_inputs = models.ManyToManyField(FarmInput, blank=True)
     plants = models.ManyToManyField(Plant, blank=True)
 

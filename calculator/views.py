@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import UserSerializer, FertilizerSerializer
+from .serializers import UserSerializer, FertilizerSerializer,PlantSerializer,FarmSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from django.contrib.auth import authenticate
@@ -7,7 +7,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.renderers import JSONRenderer
 from django.http.response import HttpResponse
 from authentication.models import User
-from .models import Fertilizer
+from .models import Fertilizer,Plant,Farm
+from rest_framework import generics
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 
@@ -25,8 +27,39 @@ def index(request):
 API VIEWS: functional api  views
 
 '''
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
+def get_fertilizers(request):
+    if request.method=="GET":
+        query = Fertilizer.objects.all()
+        serializer_class = FertilizerSerializer(query,many=True)
+        return Response(serializer_class.data)
 
-    # User Creating Endpoint
+
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
+def get_plants(request):
+    if request.method == "GET":
+        query = Plant.objects.all()
+        serializer_class = PlantSerializer(query, many=True)
+        return Response(serializer_class.data)
+
+class FarmView(generics.GenericAPIView):
+    serializer_class=FarmSerializer
+    # get farmer's farms
+    def get(self,request):
+        data=request.data
+        user=get_user_model().objects.get(pk=data["id"])
+        query=Farm.objects.filter_by(owner=user)
+        serializer=self.serializer_class(query,many=True)
+        print(serializer.data)
+        return Response(serializer.data)
+    # create farm for farmer
+    def post(self,request):
+        pass
+
+
+# User Creating Endpoint
 
 
 # @api_view(['GET', 'POST'])
@@ -68,10 +101,4 @@ API VIEWS: functional api  views
 #     return Response({'message': "hello world"})
 
 
-@api_view(['GET', 'POST'])
-@permission_classes([AllowAny])
-def get_fertilizers(request):
-    if request.method=="GET":
-        query = Fertilizer.objects.all()
-        serializer_class = FertilizerSerializer(query,many=True)
-        return Response(serializer_class.data)
+
