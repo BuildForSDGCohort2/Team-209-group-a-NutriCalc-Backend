@@ -48,7 +48,7 @@ class Plant(models.Model):
 
 # FarmInput(plant,farmer,fertilizer,estimated_calculation)
 class FarmInput(models.Model):
-    fertilizer = models.ForeignKey(Fertilizer, on_delete=models.CASCADE, default="test1")
+    fertilizer = models.ForeignKey(Fertilizer, on_delete=models.CASCADE)
     purpose = models.CharField(max_length=300)
     description = models.TextField()
     estimated_calculation = models.IntegerField(
@@ -59,8 +59,8 @@ class FarmInput(models.Model):
 
 
 class Area(models.Model):
-    county = models.CharField(max_length=100,blank=True)
-    area_name = models.CharField(max_length=100,blank=True)
+    county = models.CharField(max_length=100)
+    area_name = models.CharField(max_length=100)
     def __str__(self):
         return f"{self.area_name}"
     
@@ -74,7 +74,7 @@ class SizeOfLand(models.Model):
 class Farm(models.Model):
     owner = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="farmer")
-    farm_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     size_of_land = models.ForeignKey(SizeOfLand,on_delete=models.CASCADE)
     location = models.ForeignKey(Area, on_delete=models.CASCADE)
     soil_assesment = models.ForeignKey(

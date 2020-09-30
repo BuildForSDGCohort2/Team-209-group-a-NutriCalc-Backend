@@ -37,6 +37,6 @@ class FarmSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Farm
-        fields = ['owner', 'farm_name ', 'size_of_land',
+        fields = ['owner', 'name', 'size_of_land',
                   'location', 'soil_assesment', 'farm_inputs', 'plants']
     pass
