@@ -56,8 +56,8 @@ class LoginViewSerializer(serializers.Serializer):
     
     # validate
     def validate(self, attrs):
-        email=attrs['email']
-        password = attrs['password']
+        email=attrs.get('email')
+        password = attrs.get('password')
 
         # authenticate the user
         authenticated_user = auth.authenticate(email=email, password=password)
