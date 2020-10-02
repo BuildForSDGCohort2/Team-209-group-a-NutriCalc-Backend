@@ -73,10 +73,11 @@ class LoginViewSerializer(serializers.Serializer):
         tokens = authenticated_user.get_tokens_for_user()
         # referctored into get_token method
         '''
-        return {
+        data={
             "id":authenticated_user.id,
             "username":authenticated_user.username,
             "email":authenticated_user.email,
             "tokens":authenticated_user.get_tokens_for_user,
         }
-        return super().validate(attrs)
+        return data
+        
