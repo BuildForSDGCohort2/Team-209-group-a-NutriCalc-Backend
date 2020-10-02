@@ -38,6 +38,7 @@ class EmailVerifySerializer(serializers.ModelSerializer):
 class LoginViewSerializer(serializers.Serializer):
     # fields
     username = serializers.CharField(max_length=100,read_only=True)
+    id = serializers.IntegerField(read_only=True)
     email = serializers.EmailField(max_length=255)
     password = serializers.CharField(min_length=6,max_length=100,write_only=True)
     tokens = serializers.SerializerMethodField()
@@ -52,7 +53,7 @@ class LoginViewSerializer(serializers.Serializer):
     
     class Meta:
         model = get_user_model()
-        fields=['id','email','password','username','tokens']
+        fields = ['id', 'email', 'password', 'username', 'tokens']
     
     # validate
     def validate(self, attrs):
