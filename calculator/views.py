@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import UserSerializer, FertilizerSerializer,PlantSerializer,FarmSerializer
+from .serializers import FertilizerSerializer,PlantSerializer,FarmSerializer,FarmerSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from django.contrib.auth import authenticate
@@ -7,8 +7,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.renderers import JSONRenderer
 from django.http.response import HttpResponse
 from authentication.models import User
-from .models import Fertilizer,Plant,Farm
-from rest_framework import generics
+from .models import Fertilizer,Plant,Farm,Farmer
+from rest_framework import generics, status
 from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -40,23 +40,52 @@ def get_fertilizers(request):
 @permission_classes([AllowAny])
 def get_plants(request):
     if request.method == "GET":
-        query = Plant.objects.all()
-        serializer_class = PlantSerializer(query, many=True)
+        queryset = Plant.objects.all()
+        serializer_class = PlantSerializer(queryset, many=True)
         return Response(serializer_class.data)
 
+
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
+def get_farms(request):
+    if request.method == "GET":
+        queryset = Farm.objects.all()
+        serializer_class = FarmSerializer(queryset, many=True)
+        return Response(serializer_class.data)
+    serializer_class = FarmSerializer(data=request.data)
+    serializer_class.is_valid(raise_exception=True)
+    return Response(serializer_class.data)
+
 class FarmView(generics.GenericAPIView):
-    serializer_class=FarmSerializer
+    serializer_class=FarmerSerializer
+    
+    # overriding get queryset
+    def get_queryset(self):
+        """
+        returns farms for the specific user
+        """
+        queryset = Farmer.objects.all()
+        id= self.kwargs['id']
+        user = get_user_model().objects.get(pk=id)
+        if user is not None:
+            return queryset.filter(farm_owner=user)
+        
     # get farmer's farms
-    def get(self,request):
-        data=request.data
-        user=get_user_model().objects.get(pk=data["id"])
-        query=Farm.objects.filter_by(owner=user)
-        serializer=self.serializer_class(query,many=True)
+    def get(self,request,id):
+        serializer=self.serializer_class(self.get_queryset(),many=True)
         print(serializer.data)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    
     # create farm for farmer
-    def post(self,request):
-        pass
+    def post(self,request,id):
+        data=request.data
+        serializer=self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        print(serializer.data)
+        json=serializer.data
+        return Response(json,status=status.HTTP_201_CREATED)
 
 
 # User Creating Endpoint

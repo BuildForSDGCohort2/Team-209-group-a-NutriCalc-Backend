@@ -64,28 +64,25 @@ class Area(models.Model):
     def __str__(self):
         return f"{self.area_name}"
     
-class SizeOfLand(models.Model):
-    acres = models.IntegerField(default=0)
-    
-    def __str__(self):
-        return f"{self.acres}"
 
 # Farm (farmer,name of farm,plant,soil_assesment,farm input)
 class Farm(models.Model):
-    owner = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name="farmer")
     name = models.CharField(max_length=100)
-    size_of_land = models.ForeignKey(SizeOfLand,on_delete=models.CASCADE)
-    location = models.ForeignKey(Area, on_delete=models.CASCADE)
+    acres = models.IntegerField(default=0)
+    location = models.ForeignKey(Area, on_delete=models.CASCADE, related_name="place")
     soil_assesment = models.ForeignKey(
         SoilAssessment, on_delete=models.CASCADE, blank=True, null=True)
     farm_inputs = models.ManyToManyField(FarmInput, blank=True)
     plants = models.ManyToManyField(Plant, blank=True)
 
     def __str__(self):
-        return f"{self.owner}-{self.farm_name},{self.size_of_land} acres"
+        return f"{self.name},{self.location} -- {self.acres} acres"
 # Farmer(plant,size_of_land,area)
 class Farmer(models.Model):
-    farms = models.ManyToManyField(Farm)
+    farm_owner=models.ForeignKey(get_user_model(),on_delete=models.CASCADE,related_name="_farmer")
+    farms = models.ManyToManyField(Farm,related_name="farmers_farms")
+    def __str__(self):
+        number = self.farms.len()
+        return f"{self.farm_owner} --{number} farms "
     
 # Schedule(farmer,farm_input,date,farm_details,estimated calculation)

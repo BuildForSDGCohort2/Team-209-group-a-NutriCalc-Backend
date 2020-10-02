@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Fertilizer, SoilAssessment, FertilizerAvailable, Farmer, Farm, FarmInput,  Plant, Area, SizeOfLand
+from .models import Fertilizer, SoilAssessment, FertilizerAvailable, Farmer, Farm, FarmInput,  Plant, Area
 
 # Register your models here.
 
@@ -11,4 +11,4 @@ admin.site.register(FarmInput)
 admin.site.register(Farm)
 admin.site.register(Farmer)
 admin.site.register(Area)
-admin.site.register(SizeOfLand)
+
