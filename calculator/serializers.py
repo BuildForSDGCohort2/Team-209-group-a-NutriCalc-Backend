@@ -33,7 +33,7 @@ class FarmSerializer(serializers.ModelSerializer):
                   'location', 'soil_assesment', 'farm_inputs', 'plants']
     def validate(self, attrs):
         name=attrs.get("name")
-        acres = attrs.get("name")
+        acres = attrs.get("acres")
         if not name:
             raise ValidationError('Farm must have a name')
         if not acres:

@@ -52,15 +52,16 @@ class LoginViewSerializer(serializers.Serializer):
     
     class Meta:
         model = get_user_model()
-        fields=['email','password','username','tokens']
+        fields=['id','email','password','username','tokens']
     
     # validate
     def validate(self, attrs):
-        email=attrs.get('email')
+        email = attrs.get('email')
         password = attrs.get('password')
 
         # authenticate the user
         authenticated_user = auth.authenticate(email=email, password=password)
+        print(authenticated_user)
         if not authenticated_user:
             raise AuthenticationFailed('Invalid credentials, try again')
         if not authenticated_user.is_verified:
