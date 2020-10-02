@@ -17,7 +17,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         email=attr.get('email')
         username=attr.get('username')
       
-        if not password.isalnum():
+        if not password.len()>=6:
             raise ValidationError('Username must contain only alphanumeric')
         return attr
 
