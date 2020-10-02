@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Fertilizer, Plant,Farm,Area,Farmer
 from django.core.exceptions import ValidationError
-from drf_writable_nested.serializers import NestedCreateMixin
+
 
 
 
@@ -75,7 +75,7 @@ class FarmerSerializer(serializers.ModelSerializer):
                 # location_data = farm_data.get('location')
                 # location = Area.objects.create(location_data)
                 # name = farm_data.get('name')
-                farm = Farm.objects.create(**farm_data, farmer_farms=farmer)
+                farm = Farm.objects.create(**farm_data, farmers_farms=farmer)
                 print(farm)
                 return farm
             return farmer
