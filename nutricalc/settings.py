@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    "http://localhost:3000/",
+    "https://nutricalc.netlify.app/",
     os.environ.get('ALLOWED_HOSTS'),
     ]
 
