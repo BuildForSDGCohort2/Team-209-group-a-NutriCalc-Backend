@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from corsheaders.defaults import default_methods
 
 
 
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     'calculator',
     'drf_yasg',
     'authentication',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -62,6 +65,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
    
 ]
 
@@ -187,3 +193,28 @@ EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD= os.environ.get("EMAIL_HOST_PASSWORD")
+
+# django-course-header
+CORS_ALLOWED_ORIGINS = [
+
+    "http://localhost:3000",
+    "https://nutricalc.netlify.app/"
+    
+]
+
+CORS_ALLOW_METHODS = list(default_methods)
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'nutricalc.netlify.app',
+]
